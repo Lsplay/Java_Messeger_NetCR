@@ -1,5 +1,7 @@
 package com.example.Classes;
 
+import com.example.model.Message;
+
 import java.util.ArrayList;
 import java.util.List;
 

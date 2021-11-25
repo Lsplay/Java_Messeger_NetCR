@@ -1,29 +1,35 @@
 package com.example.Classes;
 
-import java.io.File;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import com.example.Utilities.RSAUtill;
+import com.example.model.Message;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.persistence.*;
+import java.io.File;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.example.Utilities.RSAUtill;
 
 public class CryptedMessage implements Message {
+
+	private int messageId;
+
+
+
+	private String sender;
+	private String message;
 	private boolean isChecked = false;
 	private boolean isSended = false;
-	private String message;
-	private int idGroup;
 	private File image;
-	private String sender;
+	private int idGroup;
+
 	private Date timeOfSend=new Date();
+
 	@Autowired
 	private RSAUtill rsaUtill;
 	
@@ -33,13 +39,13 @@ public class CryptedMessage implements Message {
 		
 	}
 	
-	public CryptedMessage(String message,int idGroup, String sender) {
+	public CryptedMessage(String message, int idGroup, String sender) {
 		this.setMessage(message);
 		this.idGroup=idGroup;
 		this.sender=sender;
 	}
 	
-	public CryptedMessage(File image,int idGroup, String sender) {
+	public CryptedMessage(File image, int idGroup, String sender) {
 		this.image=image;
 		this.idGroup=idGroup;
 		this.sender=sender;
