@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
+
+    <title>HobNob.Authorization</title>
+</head>
+<body>
+<div class="containerHB">
+
+    <h >HobNob</h>
+</div>
+<div class="container">
+    <form th:action="@{/login.html}" method="post">
+        <label for="username">Username</label>:
+        <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Username"/> <br />
+        <label for="password">Password</label>:
+        <input type="password" id="password" name="password" placeholder="Password"/> <br />
+        <button type="submit">sub</button>
+    </form>
+</div>
+</body>
+</html>

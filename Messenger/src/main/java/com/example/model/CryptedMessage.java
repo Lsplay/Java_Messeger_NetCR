@@ -1,22 +1,14 @@
 package com.example.model;
 
-import java.io.File;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.Date;
 import java.util.Objects;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+
 import javax.persistence.*;
 
-import com.example.model.Message;
 import com.sun.istack.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.minidev.json.JSONObject;
 
-import com.example.Utilities.RSAUtill;
 @Entity
 @Table(name="crypted_message")
 public class CryptedMessage implements Message {
@@ -26,9 +18,9 @@ public class CryptedMessage implements Message {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int messageId;
 
-	@Column(name="sender")
+	@Column(name="sender_id")
 	@NotNull
-	private String sender;
+	private int sender;
 
 	@Column(name="message")
 	@NotNull
@@ -50,10 +42,10 @@ public class CryptedMessage implements Message {
 	private Group group;
 
 	public CryptedMessage() {
-		
+
 	}
-	
-	public CryptedMessage(String message,int idGroup, String sender) {
+
+	public CryptedMessage(String message,int idGroup, int sender) {
 		this.setMessage(message);
 		this.sender=sender;
 	}
@@ -67,10 +59,10 @@ public class CryptedMessage implements Message {
 	public String getMessage() { return message; }
 
 	public void setMessage(String message) { this.message=message; }
-	public String getSender() {
+	public int getSender() {
 		return sender;
 	}
-	public void setSender(String sender) {
+	public void setSender(int sender) {
 		this.sender = sender;
 	}
 	public Date getTimeOfSend() {
@@ -99,7 +91,7 @@ public class CryptedMessage implements Message {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		CryptedMessage that = (CryptedMessage) o;
-		return messageId == that.messageId && isChecked == that.isChecked && isSended == that.isSended && sender.equals(that.sender) && message.equals(that.message) && timeOfSend.equals(that.timeOfSend);
+		return messageId == that.messageId && sender == that.sender && isChecked == that.isChecked && isSended == that.isSended && message.equals(that.message) && timeOfSend.equals(that.timeOfSend) && group.equals(that.group);
 	}
 
 	@Override

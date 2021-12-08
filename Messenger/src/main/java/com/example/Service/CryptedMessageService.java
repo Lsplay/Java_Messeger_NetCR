@@ -3,7 +3,6 @@ package com.example.Service;
 import com.example.Repository.CryptedMessageRepository;
 import com.example.Utilities.RSAUtill;
 import com.example.model.CryptedMessage;
-import com.example.model.DefaultMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.crypto.BadPaddingException;
@@ -14,7 +13,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.List;
 
-public class CryptedMessageService {
+public class CryptedMessageService  {
 
     @Autowired
     CryptedMessageRepository cryptedMessageRepository;

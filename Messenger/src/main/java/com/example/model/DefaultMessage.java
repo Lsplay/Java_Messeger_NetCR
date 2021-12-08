@@ -1,11 +1,8 @@
 package com.example.model;
 
-import com.example.model.Message;
 import com.sun.istack.NotNull;
-import jdk.jfr.Enabled;
 
 import javax.persistence.*;
-import java.io.File;
 import java.util.Date;
 import java.util.Objects;
 
@@ -24,9 +21,9 @@ public class DefaultMessage implements Message {
 	private String message;
 //	private File image;
 
-	@Column(name = "sender")
+	@Column(name = "sender_id")
 	@NotNull
-	private String sender;
+	private int sender;
 
 	@Column(name = "time_of_send")
 	@NotNull
@@ -47,7 +44,7 @@ public class DefaultMessage implements Message {
 
 	}
 
-	public DefaultMessage(String message, int idGroup, String sender) {
+	public DefaultMessage(String message, int idGroup, int sender) {
 		this.message = message;
 		this.sender = sender;
 	}
@@ -66,11 +63,11 @@ public class DefaultMessage implements Message {
 		this.message = message;
 	}
 
-	public String getSender() {
+	public int getSender() {
 		return sender;
 	}
 
-	public void setSender(String sender) {
+	public void setSender(int sender) {
 		this.sender = sender;
 	}
 
@@ -114,7 +111,7 @@ public class DefaultMessage implements Message {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		DefaultMessage that = (DefaultMessage) o;
-		return defaultMessageId == that.defaultMessageId && isChecked == that.isChecked && isSended == that.isSended && message.equals(that.message) && sender.equals(that.sender) && timeOfSend.equals(that.timeOfSend);
+		return defaultMessageId == that.defaultMessageId && sender == that.sender && isChecked == that.isChecked && isSended == that.isSended && message.equals(that.message) && timeOfSend.equals(that.timeOfSend) && group.equals(that.group);
 	}
 
 	@Override

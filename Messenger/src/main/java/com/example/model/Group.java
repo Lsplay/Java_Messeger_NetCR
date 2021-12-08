@@ -3,9 +3,7 @@ package com.example.model;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "group")
@@ -26,9 +24,14 @@ public class Group {
     @OneToMany(mappedBy = "group_id",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<DefaultMessage> dfMessages=new ArrayList<>();
 
-    @OneToMany(mappedBy = "group_id",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<User> user=new ArrayList<>();
 
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(
+            name="users_group",
+            joinColumns = {@JoinColumn(name="grop_id")},
+            inverseJoinColumns = {@JoinColumn(name="users_id")}
+    )
+    Set<User> user=new HashSet<>();
 
     public int getGroupId() {
         return groupId;

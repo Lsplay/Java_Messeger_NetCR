@@ -3,6 +3,7 @@ package com.example.Service;
 
 import com.example.Repository.UserRepository;
 import com.example.Utilities.PasswordEncoder;
+import com.example.model.Role;
 import com.example.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -21,8 +23,8 @@ public class UserService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findUserByUserName(username);
     }
 
@@ -71,5 +73,17 @@ public class UserService implements UserDetailsService {
     }
 
 
+    public boolean saveUser(User user) {
+        User userFromDb = (User) userRepository.findUserByUserName(user.getUserName());
 
+        if(userFromDb!=null){
+            return false;
+        }
+
+        user.setRoles(Collections.singleton(new Role(1,"ROLE_USER")));
+        user.setPassword(passwordEncoder.encoder(user.getPassword()));
+        userRepository.save(user);
+
+        return true;
+    }
 }
