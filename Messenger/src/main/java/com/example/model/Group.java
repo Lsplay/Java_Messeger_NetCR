@@ -21,7 +21,7 @@ public class Group {
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<CryptedMessage> crMesseges=new ArrayList<>();
 
-    @OneToMany(mappedBy = "group_id",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "group",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<DefaultMessage> dfMessages=new ArrayList<>();
 
 
@@ -31,7 +31,7 @@ public class Group {
             joinColumns = {@JoinColumn(name="grop_id")},
             inverseJoinColumns = {@JoinColumn(name="users_id")}
     )
-    Set<User> user=new HashSet<>();
+    Set<User> users=new HashSet<>();
 
     public int getGroupId() {
         return groupId;
@@ -50,7 +50,7 @@ public class Group {
     }
 
     public void addUser(User user){
-        this.user.add(user);
+        this.users.add(user);
     };
 
     @Override
