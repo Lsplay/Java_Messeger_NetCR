@@ -14,24 +14,24 @@ public class Group {
     @Column(name="id", nullable = false)
     public int groupId;
 
-    @Column(name="grop_name")
+    @Column(name="group_name")
     @NotNull
     private String name;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<CryptedMessage> crMesseges=new ArrayList<>();
 
-    @OneToMany(mappedBy = "group_id",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "group",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<DefaultMessage> dfMessages=new ArrayList<>();
 
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
-            name="users_group",
-            joinColumns = {@JoinColumn(name="grop_id")},
-            inverseJoinColumns = {@JoinColumn(name="users_id")}
+        name = "group_users", 
+        joinColumns = { @JoinColumn(name = "group_id") }, 
+        inverseJoinColumns = { @JoinColumn(name = "users_id") }
     )
-    Set<User> user=new HashSet<>();
+    Set<User> users = new HashSet<>();
 
     public int getGroupId() {
         return groupId;
@@ -50,7 +50,7 @@ public class Group {
     }
 
     public void addUser(User user){
-        this.user.add(user);
+        this.users.add(user);
     };
 
     @Override

@@ -20,9 +20,9 @@ public class User implements UserDetails {
 
     @Id
     @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
-    private Integer id;
+    private Long id;
 
     @Column(name="user_name")
     @NotNull
@@ -36,13 +36,19 @@ public class User implements UserDetails {
     @NotNull
     private String password;
 
+    @Column(name="active")
+    @NotNull
+    private boolean active;
+    
     @Transient
     private String passwordConfirm;
 
     @ManyToMany(mappedBy = "users")
-    private Set<Group> groups=new HashSet<>();
+    private Set<Group> group = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = Role.class, fetch=FetchType.EAGER)
+    @CollectionTable(name="users_role", joinColumns = @JoinColumn(name="user_id"))
+    @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
 
@@ -54,11 +60,11 @@ public class User implements UserDetails {
         this.userName = userName;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -66,13 +72,8 @@ public class User implements UserDetails {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+    public void setRoles(Set<Role> user) {
+        this.roles = user;
     }
 
     public String getPassword() {
@@ -146,4 +147,18 @@ public class User implements UserDetails {
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
