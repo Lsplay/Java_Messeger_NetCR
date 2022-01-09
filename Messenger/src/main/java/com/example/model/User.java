@@ -38,7 +38,7 @@ public class User implements UserDetails {
 
     @Column(name="active")
     @NotNull
-    private boolean active;
+    private Boolean active;
     
     @Transient
     private String passwordConfirm;
@@ -48,8 +48,8 @@ public class User implements UserDetails {
 
     @ElementCollection(targetClass = Role.class, fetch=FetchType.EAGER)
     @CollectionTable(name="users_role", joinColumns = @JoinColumn(name="user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
+   // @Enumerated(EnumType.STRING)
+    private Collection<Role> roles;
 
 
     public String getUserName() {
@@ -68,11 +68,11 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public Set<Role> getRoles() {
+    public Collection<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> user) {
+    public void setRoles(Collection<Role> user) {
         this.roles = user;
     }
 
@@ -87,22 +87,22 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     public void setPassword(String password) {
