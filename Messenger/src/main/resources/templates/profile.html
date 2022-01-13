@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title >Profile</title>
+
+<!-- Main css -->
+<link rel="stylesheet" href="css/registration.css">
+</head>
+<body>
+	<div class="main">
+		<section class="signup">
+			<div class="container">
+				<div class="signup-content">
+					<div class="signup-form">
+						<h2 class="form-title">Profile</h2>
+						<h2 class="form-title" th:text="${user.userName}"></h2>
+						
+						<a  href="/logout" class="form-submit" >Log Out</a>
+						<a href="/mainPage" class="form-submit"> Return</a>
+					</div>
+					<div class="signup-image">
+						
+						
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<script src="jquery/jquery.min.js"></script>
+</body>
+<!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

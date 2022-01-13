@@ -38,7 +38,7 @@ public class User implements UserDetails {
 
     @Column(name="active")
     @NotNull
-    private boolean active;
+    private Boolean active;
     
     @Transient
     private String passwordConfirm;
@@ -46,13 +46,12 @@ public class User implements UserDetails {
     @ManyToMany(mappedBy = "users")
     private Set<Group> group = new HashSet<>();
 
-    @ElementCollection(targetClass = Role.class, fetch=FetchType.EAGER)
-    @CollectionTable(name="users_role", joinColumns = @JoinColumn(name="user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
+//    @ElementCollection(targetClass = Role.class, fetch=FetchType.EAGER)
+//    @CollectionTable(name="users_role", joinColumns = @JoinColumn(name="user_id"))
+//    private Collection<Role> roles;
 
 
-    public String getUserName() {
+    public String getName() {
         return userName;
     }
 
@@ -68,13 +67,13 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> user) {
-        this.roles = user;
-    }
+//    public Collection<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(Collection<Role> user) {
+//        this.roles = user;
+//    }
 
     public String getPassword() {
         return password;
@@ -87,22 +86,22 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     public void setPassword(String password) {

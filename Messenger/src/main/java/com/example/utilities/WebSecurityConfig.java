@@ -24,6 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
     UserService userService;
+	
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
@@ -39,16 +40,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**", "/images/**", "/js/**", "/jquery/**", "/fonts/**").permitAll()
                     .antMatchers("/registration*").not().authenticated()
                     .antMatchers("/login").permitAll()
-                    .antMatchers("/qwe*").authenticated()	
+                    .antMatchers("/mainPage*","/profile").authenticated()	
                     .anyRequest().authenticated()
                     .and()
                 .formLogin().loginPage("/login")
-                .defaultSuccessUrl("/qwe").permitAll().and()
+                .defaultSuccessUrl("/mainPage").permitAll().and()
                 .logout().permitAll().logoutSuccessUrl("/login");
     }
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
+        
+    	auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
     }
     
 }

@@ -4,7 +4,7 @@ import java.lang.ProcessBuilder.Redirect;
 import java.util.Collections;
 import java.util.Map;
 
-import com.example.model.Role;
+
 import com.example.model.User;
 import com.example.repository.UserRepository;
 import com.example.service.UserService;
@@ -74,8 +74,8 @@ public class RegistrationAndAuthenticationController {
 	    @PostMapping("/login")
 	    public String auth(@ModelAttribute("userForm") @Validated User userForm){
 			
-	    	if(userService.loadUserByUsername(userForm.getUserName()).getPassword()==userForm.getPassword()) {
-				return "qwe";
+	    	if(userService.loadUserByUsername(userForm.getName()).getPassword()==userForm.getPassword()) {
+				return "mainPage";
 			}
 	    	return "login";
 	    	

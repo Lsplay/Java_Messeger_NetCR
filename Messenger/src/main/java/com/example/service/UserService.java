@@ -1,7 +1,7 @@
 package com.example.service;
 
 
-import com.example.model.Role;
+
 import com.example.model.User;
 import com.example.repository.UserRepository;
 import com.example.utilities.PasswordEncoder;
@@ -81,13 +81,13 @@ public class UserService implements UserDetailsService {
 
 
     public boolean saveUser(User user) {
-        User userFromDb = (User) userRepository.findUserByUserName(user.getUserName());
+        User userFromDb = (User) userRepository.findUserByUserName(user.getName());
 
         if(userFromDb!=null){
             return false;
         }
         user.setPassword(passwordEncoder.encoder(user.getPassword()));
-        user.setRoles(Collections.singleton(Role.USER));
+       
         user.setActive(true);
         userRepository.save(user);
         

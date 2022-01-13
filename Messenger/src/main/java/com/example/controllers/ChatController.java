@@ -22,13 +22,7 @@ public class ChatController {
 		return "chatsPage";
 	}
 	
-	@GetMapping("/qwe")
-	public String qwe(Principal principal, Model model) {
-		//Передает в модель последние чаты пользователя и выводит их
-		model.addAttribute("user", model);//model=user
 	
-		return "qwe";
-	}
 	
 	@GetMapping("/chat/create")
 	public String chatsСreate(Principal principal, Model model) {
