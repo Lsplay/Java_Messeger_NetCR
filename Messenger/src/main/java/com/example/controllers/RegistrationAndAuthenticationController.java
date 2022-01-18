@@ -74,7 +74,7 @@ public class RegistrationAndAuthenticationController {
 	    @PostMapping("/login")
 	    public String auth(@ModelAttribute("userForm") @Validated User userForm){
 			
-	    	if(userService.loadUserByUsername(userForm.getName()).getPassword()==userForm.getPassword()) {
+	    	if(userService.loadUserByUsername(userForm.getUserName()).getPassword()==userForm.getPassword()) {
 				return "mainPage";
 			}
 	    	return "login";

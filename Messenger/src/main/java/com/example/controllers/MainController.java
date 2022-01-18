@@ -21,12 +21,8 @@ public class MainController {
 	
 	@GetMapping("/mainPage")
 	public String mainPage(Principal principal,Model model) {
-		System.out.println(principal.getName());
-		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
-		
-		System.out.println(auth.toString());
-		System.out.println(auth.getName());
-		System.out.println(auth.getPrincipal());
+		User user=userService.loadUserByUsername(principal.getName());
+		model.addAttribute("user", user);
 		return "mainPage";
 	}
 	

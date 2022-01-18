@@ -34,6 +34,14 @@ public class UserService implements UserDetailsService {
        }
     	throw new UsernameNotFoundException("User not exsist with name:"+ username);
     }
+    
+    public User loadUserById(Long id)  {
+        
+        if(userRepository.findById(id)!=null) {
+     	   return userRepository.getById(id);
+        }
+     	throw new UsernameNotFoundException("User not exsist with id:"+ id);
+     }
 
     public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
         return userRepository.findUserByEmail(email);
@@ -81,7 +89,7 @@ public class UserService implements UserDetailsService {
 
 
     public boolean saveUser(User user) {
-        User userFromDb = (User) userRepository.findUserByUserName(user.getName());
+        User userFromDb = (User) userRepository.findUserByUserName(user.getUserName());
 
         if(userFromDb!=null){
             return false;

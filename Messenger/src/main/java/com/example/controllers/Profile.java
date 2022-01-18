@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.model.User;
 import com.example.service.UserService;
@@ -22,5 +23,16 @@ public class Profile {
 		model.addAttribute("user", user);
 		
 		return "profile";
+	}
+	
+	@GetMapping("/profile/{id}")
+	public String profileId(Principal principal,@PathVariable Long id, Model model) {
+		User user1=userService.loadUserByUsername(principal.getName());
+		User user= userService.loadUserById(id);
+		if(user1!=user) {
+			model.addAttribute("user", user);
+			return "profileUser";
+		}
+		return "redirect:/findUsers";
 	}
 }

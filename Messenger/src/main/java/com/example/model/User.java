@@ -51,7 +51,7 @@ public class User implements UserDetails {
 //    private Collection<Role> roles;
 
 
-    public String getName() {
+    public String getUserName() {
         return userName;
     }
 
@@ -81,7 +81,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return this.userName;
     }
 
     @Override

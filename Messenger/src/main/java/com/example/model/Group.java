@@ -10,9 +10,10 @@ import java.util.*;
 public class Group {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", nullable = false)
-    public int groupId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name="id")
+    @NotNull
+    public Long groupId;
 
     @Column(name="group_name")
     @NotNull
@@ -33,11 +34,11 @@ public class Group {
     )
     Set<User> users = new HashSet<>();
 
-    public int getGroupId() {
+    public Long getId() {
         return groupId;
     }
 
-    public void setGroupId(int groupId) {
+    public void setId(Long groupId) {
         this.groupId = groupId;
     }
 
@@ -74,5 +75,27 @@ public class Group {
                 ", crMesseges=" + crMesseges +
                 ", dfMessages=" + dfMessages +
                 '}';
+    }
+    
+    public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+
+	public Group(Set<User> users,String name) {
+    	this.users=users;
+    	if(users.size()==2) {
+    		Iterator<User> iter=users.iterator();
+    		while(iter.hasNext()) {
+    			this.name+=iter.next().getUserName();
+    		}
+    	}
+    }
+	public Group(String name) {
+    	
+    	this.name=name;
     }
 }
