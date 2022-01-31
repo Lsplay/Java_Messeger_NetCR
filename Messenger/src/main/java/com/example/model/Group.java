@@ -1,17 +1,18 @@
 package com.example.model;
 
 import com.sun.istack.NotNull;
-
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "group")
+@Table(name = "groups")
 public class Group {
 
+	
+	
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     public Long groupId;
 
@@ -97,5 +98,8 @@ public class Group {
 	public Group(String name) {
     	
     	this.name=name;
+    }
+	public Group() {
+    	this.name="Null";
     }
 }

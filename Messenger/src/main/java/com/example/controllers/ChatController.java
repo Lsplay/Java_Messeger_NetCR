@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,10 @@ public class ChatController {
 	@GetMapping("/chat")
 	public String chatsPage(Principal principal, Model model) {
 		//Передает в модель последние чаты пользователя и выводит их
+		User user=userService.loadUserByUsername(principal.getName());
+		Iterable<Group> gr=groupService.findByUser(user);
+		System.out.println(gr.toString());
+		model.addAttribute("groups", gr);
 		model.addAttribute("user", model);//model=user
 	
 		return "chatsPage";
@@ -70,14 +75,15 @@ public class ChatController {
 		return "chat";
 	}
 	
-	@PostMapping("/chat/create")
+	@PostMapping("/chatCreate")
 	public String findUsers(Principal principal, Model model,@RequestParam("chatName") String chatName) {
 		Set<User> users=Set.of(userService.loadUserByUsername(principal.getName()));
 		Group group=new Group(chatName);
+		group.addUser(userService.loadUserByUsername(principal.getName()));
 		System.out.println(group.toString());
 		System.out.println(chatName);
-		groupService.create(group);
 		
+		groupService.create(group);
 		
 		model.addAttribute("user", model);//model=user
 		return "redirect:/chat";

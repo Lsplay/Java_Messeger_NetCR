@@ -160,4 +160,13 @@ public class User implements UserDetails {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public Set<Group> getGroup() {
+		return group;
+	}
+
+	public void setGroup(Set<Group> group) {
+		this.group = group;
+	}
+	
 }

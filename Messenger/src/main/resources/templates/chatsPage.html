@@ -42,8 +42,13 @@
 				<div class="row text-center">
 					<div class="col-lg-8 col-lg-offset-2">
 						<h1>Chats</h1>
-						
 						<a href="chatСreate">Create Chat</a>
+							<div th:each="el:${groups}" class="alert alert-info mt-2">
+								<li th:text="${el.name}"></li>
+								<a th:href="'chat/' + ${el.groupId}" class="btn btn-warning">Chat</a>
+							</div>
+						
+						
 					</div>
 				</div>
 			</div>
