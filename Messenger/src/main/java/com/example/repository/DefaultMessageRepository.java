@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface DefaultMessageRepository extends JpaRepository<DefaultMessage,Integer> {
+public interface DefaultMessageRepository extends JpaRepository<DefaultMessage,Long> {
 
     public DefaultMessage findDefaultMessageByMessage(String message);
     public List<DefaultMessage> findAllDefaultMessagesBySender(String sender);

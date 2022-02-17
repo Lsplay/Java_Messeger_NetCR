@@ -8,8 +8,8 @@ public interface Message {
 	public String getMessage();
 //	public void setImage(File file);
 //	public File getImage();
-	public void setSender(int string);
-	public int getSender();
+	public void setSender(Long string);
+	public Long getSender();
 	public void setTimeOfSend(Date date);
 	public Date getTimeOfSend();
 	public void messageIsChecked();

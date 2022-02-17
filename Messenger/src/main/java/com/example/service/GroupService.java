@@ -35,7 +35,7 @@ public class GroupService {
 
 	}
 
-
+	
 	public Group read(Long id) {
 		return groupRepository.getById(id);
 	}

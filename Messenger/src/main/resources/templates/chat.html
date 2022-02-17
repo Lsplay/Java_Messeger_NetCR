@@ -4,7 +4,10 @@
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <title>Hello World!</title>
-
+<script
+			  src="https://code.jquery.com/jquery-2.2.4.js"
+			  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+			  crossorigin="anonymous"></script>
 <link rel="stylesheet" href="css/block.css">
 
 </head>
@@ -42,8 +45,26 @@
 				<div class="row text-center">
 					<div class="col-lg-8 col-lg-offset-2">
 						<h1>Chat</h1>
-						
-
+						<div></div>
+						<div class="alert alert-info mt-2">
+						<a th:href="@{'/addUser'+${id}}" class="btn btn-warning">Chat</a>
+						</div>
+						<div id='responce'>
+								<form name ='ourForm' >
+									<div>
+										<input type="text" name='message'>
+										<input type="checkbox" name="Crypt"  placeholder="text"
+											id="check">
+										<button type="submit" name="submit" id="submit">Submit</button>
+									</div>
+								</form>
+							</div>
+						<div>
+							<div  class="list" >
+								
+							</div>
+							
+						</div>
 
 					</div>
 				</div>
@@ -57,7 +78,7 @@
 	<script src="js/block.js">
 		
 	</script>
-
+	<script src="js/chat.js"></script>
 
 
 </body>

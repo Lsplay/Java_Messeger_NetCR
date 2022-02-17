@@ -6,21 +6,30 @@ import java.util.Objects;
 
 import javax.persistence.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.repository.GroupRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import net.minidev.json.JSONObject;
+
+
 
 @Entity
 @Table(name="crypted_message")
 public class CryptedMessage implements Message {
 
+	
+	
 	@Id
 	@Column(name="id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int messageId;
+	@NotNull
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long messageId;
 
 	@Column(name="sender_id")
 	@NotNull
-	private int sender;
+	private Long sender;
 
 	@Column(name="message")
 	@NotNull
@@ -36,7 +45,7 @@ public class CryptedMessage implements Message {
 	@NotNull
 	private Date timeOfSend=new Date();
 
-
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "group_id", nullable = false)
 	private Group group;
@@ -45,9 +54,11 @@ public class CryptedMessage implements Message {
 
 	}
 
-	public CryptedMessage(String message,int idGroup, int sender) {
+	public CryptedMessage(String message,Group group, Long sender) {
 		this.setMessage(message);
 		this.sender=sender;
+		
+		this.group=group;
 	}
 	
 //	public CryptedMessage(File image,int idGroup, String sender) {
@@ -56,13 +67,21 @@ public class CryptedMessage implements Message {
 //		this.sender=sender;
 //	}
 
+	
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
 	public String getMessage() { return message; }
 
 	public void setMessage(String message) { this.message=message; }
-	public int getSender() {
+	public Long getSender() {
 		return sender;
 	}
-	public void setSender(int sender) {
+	public void setSender(Long sender) {
 		this.sender = sender;
 	}
 	public Date getTimeOfSend() {
@@ -78,11 +97,11 @@ public class CryptedMessage implements Message {
 		this.isSended=true;
 	}
 
-	public int getMessageId() {
+	public Long getMessageId() {
 		return messageId;
 	}
 
-	public void setMessageId(int messageId) {
+	public void setMessageId(Long messageId) {
 		this.messageId = messageId;
 	}
 

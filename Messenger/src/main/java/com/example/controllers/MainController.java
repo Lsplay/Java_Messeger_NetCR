@@ -26,4 +26,11 @@ public class MainController {
 		return "mainPage";
 	}
 	
+	@GetMapping("/index")
+	public String gg(Principal principal,Model model) {
+		
+		model.addAttribute("user", "HI");
+		return "index";
+	}
+	
 }

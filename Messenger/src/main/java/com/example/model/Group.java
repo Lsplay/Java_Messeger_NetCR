@@ -1,5 +1,6 @@
 package com.example.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import javax.persistence.*;
 import java.util.*;
@@ -19,10 +20,12 @@ public class Group {
     @Column(name="group_name")
     @NotNull
     private String name;
-
+    
+    @JsonIgnore
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<CryptedMessage> crMesseges=new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "group",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<DefaultMessage> dfMessages=new ArrayList<>();
 
@@ -55,7 +58,30 @@ public class Group {
         this.users.add(user);
     };
 
-    @Override
+    public List<CryptedMessage> getCrMesseges() {
+		return crMesseges;
+	}
+
+	public void setCrMesseges(List<CryptedMessage> crMesseges) {
+		this.crMesseges = crMesseges;
+	}
+	
+	public void addCrMessege(CryptedMessage cryptedMessage) {
+		this.crMesseges.add(cryptedMessage);
+	}
+
+	public void addDefMessege(DefaultMessage defaultMessage) {
+		this.dfMessages.add(defaultMessage);
+	}
+	public List<DefaultMessage> getDfMessages() {
+		return dfMessages;
+	}
+
+	public void setDfMessages(List<DefaultMessage> dfMessages) {
+		this.dfMessages = dfMessages;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

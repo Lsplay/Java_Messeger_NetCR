@@ -1,13 +1,16 @@
 package com.example.service;
 
 import com.example.model.DefaultMessage;
+import com.example.model.Group;
 import com.example.model.User;
 import com.example.repository.DefaultMessageRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DefaultMessageService  {
 
     @Autowired
@@ -15,16 +18,18 @@ public class DefaultMessageService  {
 
     public void create(DefaultMessage defaultMessage){
         if(defaultMessage!=null){
+        	Group gr=defaultMessage.getGroup();
+        	gr.addDefMessege(defaultMessage);
             defaultMessageRepository.save(defaultMessage);
         }
 
     }
 
-    public DefaultMessage read(int id) {
+    public DefaultMessage read(Long id) {
         return defaultMessageRepository.getById(id);
     }
 
-    public DefaultMessage updateMessage(DefaultMessage newMessage,int id){
+    public DefaultMessage updateMessage(DefaultMessage newMessage,Long id){
         if(defaultMessageRepository.findById(id)!=null) {
             DefaultMessage defaultMessage = defaultMessageRepository.findById(id).orElseThrow();
             defaultMessageRepository.deleteById(id);
@@ -35,7 +40,7 @@ public class DefaultMessageService  {
         return null;
     }
 
-    public boolean delete(int id){
+    public boolean delete(Long id){
         if(defaultMessageRepository.existsById(id)){
             defaultMessageRepository.deleteById(id);
             return true;

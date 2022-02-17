@@ -1,10 +1,12 @@
 package com.example.service;
 
 import com.example.model.CryptedMessage;
+import com.example.model.Group;
 import com.example.repository.CryptedMessageRepository;
 import com.example.utilities.RSAUtill;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -14,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.List;
 
+@Service
 public class CryptedMessageService  {
 
     @Autowired
@@ -42,19 +45,21 @@ public class CryptedMessageService  {
 
     public void create(CryptedMessage cryptedMessage) throws IllegalBlockSizeException, NoSuchPaddingException, BadPaddingException, NoSuchAlgorithmException, InvalidKeyException {
         if(cryptedMessage!=null){
+        	Group gr=cryptedMessage.getGroup();
+        	gr.addCrMessege(cryptedMessage);
             cryptedMessage.setMessage(cryptMessage(cryptedMessage.getMessage()));
             cryptedMessageRepository.save(cryptedMessage);
         }
 
     }
 
-    public CryptedMessage read(int id) {
+    public CryptedMessage read(Long id) {
         CryptedMessage cryptedMessage=cryptedMessageRepository.getById(id);
         cryptedMessage.setMessage(decryptMessage(cryptedMessage.getMessage()));
         return cryptedMessage;
     }
 
-    public CryptedMessage updateMessage(CryptedMessage newMessage,int id) throws IllegalBlockSizeException, NoSuchPaddingException, BadPaddingException, NoSuchAlgorithmException, InvalidKeyException {
+    public CryptedMessage updateMessage(CryptedMessage newMessage,Long id) throws IllegalBlockSizeException, NoSuchPaddingException, BadPaddingException, NoSuchAlgorithmException, InvalidKeyException {
         if(cryptedMessageRepository.findById(id)!=null) {
             CryptedMessage defaultMessage = cryptedMessageRepository.findById(id).orElseThrow();
             cryptedMessageRepository.deleteById(id);
@@ -66,7 +71,7 @@ public class CryptedMessageService  {
         return null;
     }
 
-    public boolean delete(int id){
+    public boolean delete(Long id){
         if(cryptedMessageRepository.existsById(id)){
             cryptedMessageRepository.deleteById(id);
             return true;

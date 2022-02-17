@@ -1,8 +1,15 @@
 package com.example.model;
 
+import com.example.repository.GroupRepository;
+import com.example.service.GroupService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -10,11 +17,12 @@ import java.util.Objects;
 @Table(name="default_message")
 public class DefaultMessage implements Message {
 
-
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id", nullable = false)
-	private int defaultMessageId;
+	@NotNull
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="id")
+	private Long defaultMessageId;
 
 	@Column(name = "message")
 	@NotNull
@@ -23,7 +31,7 @@ public class DefaultMessage implements Message {
 
 	@Column(name = "sender_id")
 	@NotNull
-	private int sender;
+	private Long sender;
 
 	@Column(name = "time_of_send")
 	@NotNull
@@ -35,7 +43,7 @@ public class DefaultMessage implements Message {
 	@Column(name = "is_sended")
 	private boolean isSended=false;
 
-
+	@JsonIgnore
  	@ManyToOne(fetch = FetchType.LAZY,optional = false)
 	@JoinColumn(name = "group_id", nullable = false)
 	private Group group;
@@ -44,9 +52,11 @@ public class DefaultMessage implements Message {
 
 	}
 
-	public DefaultMessage(String message, int idGroup, int sender) {
+	public DefaultMessage(String message, Group group, Long sender) {
 		this.message = message;
 		this.sender = sender;
+		
+		this.group=group;
 	}
 
 //	public DefaultMessage(File image, int idGroup, String sender) {
@@ -59,15 +69,23 @@ public class DefaultMessage implements Message {
 		return message;
 	}
 
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
-	public int getSender() {
+	public Long getSender() {
 		return sender;
 	}
 
-	public void setSender(int sender) {
+	public void setSender(Long sender) {
 		this.sender = sender;
 	}
 
@@ -86,11 +104,11 @@ public class DefaultMessage implements Message {
 		this.isSended=true;
 	}
 
-	public int getDefaultMessageId() {
+	public Long getDefaultMessageId() {
 		return defaultMessageId;
 	}
 
-	public void setDefaultMessageId(int defaultMessageId) {
+	public void setDefaultMessageId(Long defaultMessageId) {
 		this.defaultMessageId = defaultMessageId;
 	}
 

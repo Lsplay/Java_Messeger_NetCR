@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface CryptedMessageRepository extends JpaRepository<CryptedMessage,Integer> {
+public interface CryptedMessageRepository extends JpaRepository<CryptedMessage,Long> {
 
 
 
